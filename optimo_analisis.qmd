@@ -1,0 +1,176 @@
+---
+title: "Análisis de Estatutos Óptimos - Belmira"
+format: 
+  html:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    theme: cosmo
+    smooth-scroll: true
+execute:
+  echo: false
+  warning: false
+  message: false
+params:
+  cod_dane: "05086"
+  nombre: "Belmira"
+lang: es
+---
+
+# Introducción
+
+El presente análisis presenta los resultados de la estimación de estatutos óptimos para el municipio de **Belmira** (código DANE: 05086). 
+
+Los estatutos óptimos buscan maximizar el recaudo del impuesto predial manteniendo principios de equidad, progresividad y sostenibilidad fiscal, considerando las características específicas del municipio y su capacidad administrativa.
+
+Para ver más detalles metodológicos puede visitar la sección de [metodología](optimo_metodologia.qmd) y para las propuestas específicas consulte la sección de [propuestas](optimo_propuesta.qmd).
+
+# Métricas Clave del Análisis
+
+Las siguientes métricas resumen el desempeño del estatuto óptimo propuesto comparado con el estatuto actual:
+
+![Métricas Clave](optimos/05086/metricas_clave.png)
+
+# Análisis Tarifario
+
+## Estructura de Tarifas Promedio
+
+El siguiente gráfico muestra la comparación entre las tarifas actuales y las tarifas óptimas propuestas:
+
+![Tarifas Promedio](optimos/05086/tarifas_promedio.png)
+
+## Tarifas por Segmento
+
+La segmentación permite aplicar tarifas diferenciadas según las características de los predios:
+
+![Tarifas por Segmento](optimos/05086/tarifas_por_segmento.png)
+
+## Mapa de Calor de Tarifas
+
+Visualización de la distribución de tarifas por segmento y estrato:
+
+![Mapa de Calor Tarifas](optimos/heatmap_tarifas_segmento.png)
+
+# Análisis de Recaudo
+
+## Recaudo por Segmento
+
+Comparación del recaudo proyectado entre el estatuto actual y el propuesto:
+
+![Recaudo por Segmento](optimos/recaudo_por_segmento.png)
+
+## Recaudo por Nivel
+
+Distribución del recaudo según niveles de avalúo catastral:
+
+![Recaudo por Nivel](optimos/recaudo_por_nivel.png)
+
+## Contribución al Recaudo por Segmento
+
+Análisis de la participación de cada segmento en el recaudo total:
+
+![Contribución Recaudo](optimos/contribucion_recaudo_segmento.png)
+
+# Indicadores de Desempeño
+
+## Ratios por Nivel
+
+Análisis de los ratios de tarifa efectiva por nivel de avalúo:
+
+![Ratios por Nivel](optimos/ratios_por_nivel.png)
+
+## Radar de Desempeño
+
+Evaluación multidimensional del desempeño del estatuto propuesto:
+
+![Radar Desempeño](optimos/radar_desempeno.png)
+
+# Datos y Resultados
+
+## Resumen de Escenarios
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+# Verificar si existe el archivo de resumen
+archivo_resumen <- "optimos/resumen_escenarios.csv"
+
+if (file.exists(archivo_resumen)) {
+  # Cargar y mostrar el resumen de escenarios
+  suppressPackageStartupMessages({
+    library(readr)
+    library(knitr)
+    library(dplyr)
+  })
+  
+  tryCatch({
+    resumen <- read_csv(archivo_resumen, show_col_types = FALSE)
+    
+    # Formatear la tabla para mejor presentación
+    resumen_formateado <- resumen %>%
+      mutate(across(where(is.numeric), ~ round(.x, 2)))
+    
+    kable(resumen_formateado, 
+          caption = "Resumen de Escenarios Evaluados",
+          format = "html") %>%
+      kableExtra::kable_styling(
+        bootstrap_options = c("striped", "hover", "condensed"),
+        full_width = FALSE
+      )
+  }, error = function(e) {
+    cat("⚠️ No se pudo cargar el resumen de escenarios:", e$message)
+  })
+} else {
+  cat("📊 Archivo de resumen no disponible en esta versión.")
+}
+```
+
+## Análisis Detallado por Segmentos
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+# Verificar si existe el archivo de análisis por segmentos
+archivo_segmentos <- "optimos/analisis_segmentos.csv"
+
+if (file.exists(archivo_segmentos)) {
+  tryCatch({
+    analisis_seg <- read_csv(archivo_segmentos, show_col_types = FALSE)
+    
+    # Formatear la tabla
+    analisis_formateado <- analisis_seg %>%
+      mutate(across(where(is.numeric), ~ round(.x, 3)))
+    
+    kable(analisis_formateado, 
+          caption = "Análisis Detallado por Segmentos",
+          format = "html") %>%
+      kableExtra::kable_styling(
+        bootstrap_options = c("striped", "hover", "condensed"),
+        full_width = FALSE
+      )
+  }, error = function(e) {
+    cat("⚠️ No se pudo cargar el análisis de segmentos:", e$message)
+  })
+} else {
+  cat("📊 Análisis de segmentos no disponible en esta versión.")
+}
+```
+
+# Conclusiones
+
+El análisis de estatutos óptimos para Belmira proporciona una hoja de ruta basada en evidencia para:
+
+1. **Optimizar el recaudo** manteniendo principios de equidad fiscal
+2. **Mejorar la progresividad** del impuesto predial
+3. **Fortalecer la sostenibilidad** de las finanzas municipales
+4. **Facilitar la implementación** con herramientas prácticas
+
+Los resultados muestran el potencial de mejora en la gestión del impuesto predial, considerando las capacidades administrativas y las características socioeconómicas del municipio.
+
+---
+
+*Última actualización: `r Sys.Date()`*
