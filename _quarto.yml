@@ -58,11 +58,6 @@ format:
     toc: true
     toc-location: right
     code-fold: true
-
-  revealjs:
-    theme: simple
-    transition: fade
-    slide-number: true
     
 execute:
   freeze: auto
