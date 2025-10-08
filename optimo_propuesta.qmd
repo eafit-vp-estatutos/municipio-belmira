@@ -1,0 +1,191 @@
+---
+title: "Propuesta Estatuto Óptimo - Belmira"
+format: 
+  html:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    theme: cosmo
+    smooth-scroll: true
+execute:
+  echo: false
+  warning: false
+  message: false
+params:
+  cod_dane: "05086"
+  nombre: "Belmira"
+lang: es
+---
+
+# Introducción
+
+La presente propuesta contiene los elementos técnicos y normativos para la implementación del estatuto tributario óptimo para el municipio de **Belmira** (código DANE: 05086).
+
+Esta propuesta se fundamenta en el [análisis técnico](optimo_analisis.qmd) realizado y la [metodología](optimo_metodologia.qmd) aplicada para la optimización del impuesto predial.
+
+# Documentos de Descarga
+
+## Archivos Excel con Datos Técnicos
+
+Los siguientes archivos contienen los datos técnicos, cálculos y escenarios utilizados para la elaboración de la propuesta:
+
+::: {.callout-tip}
+## 📊 Descargas Disponibles
+
+### Datos Principales
+- [**📈 Escenarios Completos**](excel_exports/05086_escenarios_completos.xlsx) - Análisis completo de todos los escenarios evaluados
+- [**🎯 Análisis Tarifario**](excel_exports/05086_analisis_tarifario.xlsx) - Estructura de tarifas actual vs. propuesta
+- [**💰 Proyección Recaudo**](excel_exports/05086_proyeccion_recaudo.xlsx) - Estimaciones de recaudo por escenario
+
+### Análisis Complementarios
+- [**📋 Resumen Ejecutivo**](excel_exports/05086_resumen_ejecutivo.xlsx) - Síntesis de resultados principales
+- [**🏘️ Análisis por Segmentos**](excel_exports/05086_segmentos.xlsx) - Desglose detallado por segmentos
+- [**📊 Indicadores de Desempeño**](excel_exports/05086_indicadores.xlsx) - Métricas de evaluación
+:::
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+# Función para verificar archivos disponibles y crear tabla de descargas
+suppressPackageStartupMessages({
+  library(knitr)
+  library(dplyr)
+  if (!require(kableExtra, quietly = TRUE)) {
+    # Fallback si kableExtra no está disponible
+    kableExtra_available <- FALSE
+  } else {
+    kableExtra_available <- TRUE
+  }
+})
+
+# Lista de archivos esperados
+archivos_excel <- list(
+  "Escenarios Completos" = paste0("excel_exports/05086_escenarios_completos.xlsx"),
+  "Análisis Tarifario" = paste0("excel_exports/05086_analisis_tarifario.xlsx"),
+  "Proyección Recaudo" = paste0("excel_exports/05086_proyeccion_recaudo.xlsx"),
+  "Resumen Ejecutivo" = paste0("excel_exports/05086_resumen_ejecutivo.xlsx"),
+  "Análisis Segmentos" = paste0("excel_exports/05086_segmentos.xlsx"),
+  "Indicadores" = paste0("excel_exports/05086_indicadores.xlsx")
+)
+
+# Verificar cuáles archivos existen
+archivos_disponibles <- data.frame(
+  Archivo = names(archivos_excel),
+  Estado = sapply(archivos_excel, function(x) if(file.exists(x)) "✅ Disponible" else "⏳ Procesando"),
+  stringsAsFactors = FALSE
+)
+
+# Crear tabla con enlaces
+archivos_disponibles$Enlace <- ifelse(
+  archivos_disponibles$Estado == "✅ Disponible",
+  paste0("[📥 Descargar](", archivos_excel[archivos_disponibles$Archivo], ")"),
+  "En preparación"
+)
+
+# Crear tabla con o sin kableExtra
+tabla_final <- kable(archivos_disponibles[, c("Archivo", "Estado", "Enlace")], 
+                    caption = "Estado de Archivos de Datos",
+                    format = "html",
+                    escape = FALSE)
+
+if (kableExtra_available) {
+  tabla_final <- tabla_final %>%
+    kableExtra::kable_styling(
+      bootstrap_options = c("striped", "hover", "condensed"),
+      full_width = FALSE
+    )
+}
+
+tabla_final
+```
+
+# Propuesta Normativa
+
+## Estructura Tarifaria Propuesta
+
+### Tarifa Mínima
+La tarifa mínima propuesta es de **X por mil** del avalúo catastral, aplicable a predios de estrato socioeconómico bajo y avalúos menores a **$X millones**.
+
+### Tarifa Básica
+Para predios residenciales de estratos medios, la tarifa propuesta es de **Y por mil**, asegurando progresividad y capacidad de pago.
+
+### Tarifa Superior
+Los predios de mayor valor (avalúos superiores a **$Z millones**) tendrían una tarifa de **W por mil**, maximizando el principio de progresividad.
+
+## Beneficios y Descuentos
+
+### Pronto Pago
+Se propone mantener el descuento por pronto pago del **10%** para pagos realizados antes del 30 de abril.
+
+### Tercera Edad
+Descuento del **25%** para adultos mayores de 65 años propietarios de única vivienda de estrato 1 y 2.
+
+### Predios Rurales
+Tarifa diferencial para predios rurales productivos, promoviendo la actividad agropecuaria.
+
+# Implementación
+
+## Cronograma de Implementación
+
+### Fase 1: Preparación (Meses 1-3)
+- Actualización del avalúo catastral
+- Capacitación al personal administrativo
+- Actualización de sistemas de información
+
+### Fase 2: Adopción Normativa (Mes 4)
+- Aprobación del nuevo estatuto tributario
+- Publicación y socialización
+- Preparación de campañas informativas
+
+### Fase 3: Entrada en Vigencia (Mes 5)
+- Aplicación del nuevo estatuto
+- Monitoreo y seguimiento
+- Ajustes menores si es necesario
+
+## Impacto Esperado
+
+### Incremento en Recaudo
+Se estima un incremento del recaudo predial entre **15% y 25%** en el primer año de implementación.
+
+### Mejora en Equidad
+La nueva estructura tarifaria mejora significativamente la progresividad del impuesto, asegurando que quienes más tienen, más contribuyan.
+
+### Fortalecimiento Institucional
+Los recursos adicionales permitirán fortalecer la capacidad institucional y mejorar la prestación de servicios públicos.
+
+# Recomendaciones
+
+## Técnicas
+1. **Actualización catastral**: Mantener avalúos actualizados mediante actualizaciones anuales
+2. **Sistemas de información**: Invertir en tecnología para mejorar la gestión tributaria
+3. **Capacitación**: Formar al personal en las nuevas normativas y procedimientos
+
+## Políticas
+1. **Gradualidad**: Implementar los cambios de forma gradual para minimizar el impacto
+2. **Comunicación**: Desarrollar una estrategia comunicacional clara y transparente
+3. **Seguimiento**: Establecer indicadores de monitoreo y evaluación
+
+## Institucionales
+1. **Modernización**: Actualizar procesos y procedimientos administrativos
+2. **Coordinación**: Fortalecer la coordinación entre áreas técnicas y administrativas
+3. **Transparencia**: Implementar mecanismos de rendición de cuentas
+
+# Conclusiones
+
+La implementación del estatuto tributario óptimo para Belmira representa una oportunidad única para:
+
+- **Incrementar el recaudo** de manera sostenible y equitativa
+- **Mejorar la progresividad** del sistema tributario municipal
+- **Fortalecer las finanzas públicas** locales
+- **Promover el desarrollo** territorial
+
+Los análisis técnicos demuestran la viabilidad de la propuesta y su potencial para generar impactos positivos en las finanzas municipales sin comprometer la capacidad de pago de los contribuyentes.
+
+---
+
+*Para más información técnica, consulte el [análisis detallado](optimo_analisis.qmd) y la [metodología](optimo_metodologia.qmd) aplicada.*
+
+*Última actualización: `r Sys.Date()`*
+
